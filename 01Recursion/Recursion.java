@@ -2,13 +2,13 @@ public class Recursion {
     public static String name() {
 	return "Rozenzaft,Daniel";
     }
-    public static boolean isCloseEnough(double a, double b) {
+    private static boolean isCloseEnough(double a, double b) {
 	return Math.abs(a-b)/b <= 0.000000000000001;
     }
     public static double sqrt(double n) {
 	return sqrt2(n,1);
     }
-    public static double sqrt2(double n, double guess) {
+    private static double sqrt2(double n, double guess) {
         if (n < 0)
 	    throw new IllegalArgumentException("Domain Error: input is less than 0");
 	if (n == 0)
