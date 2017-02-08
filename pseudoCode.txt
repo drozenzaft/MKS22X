@@ -1,0 +1,37 @@
+Squares have 3 states: 
+	- In danger (1)
+	- Safe space (0)
+	- Has queen (-1)
+	Queens can only be placed on zeroes.
+	The board is a 2D int arry because if, say, two queens endanger the same square, then the square's number will be (1 + 1) = 2. That way, if you decide to remove a queen, you can subtract 1 from the value and the square will still be in danger.
+	So if you add a queen, then you subtract 1 from the value.
+	So, to summarize, if the value of a square is:
+		-1, then there is a queen there.
+		 0, then it is safe.
+	       > 0, then it is endangered.
+
+
+public boolean solveH(int col) {
+	x = col
+	addQueen(Row0,x)
+	while (cannotPlaceQueen(row+1,col) && col < boardLength) {
+		solveH(col+1)
+	} 
+	if (col == boardLength) {
+		solveH(x + 1)
+	}	
+}
+
+public int getSolutionCount() {
+	if (solutionWasFound) {
+		return solutionCount
+	}
+	else {
+		return -1
+	}
+}
+
+public String toString() {
+	for (int i = 0; i < boardLength; 
+
+
