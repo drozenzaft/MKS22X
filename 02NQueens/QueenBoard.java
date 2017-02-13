@@ -20,7 +20,7 @@ public class QueenBoard {
     }
 
     public boolean solve() {
-	return solveH(0,0);
+	return solveH(0);
     }
 
     private int findQueen(int row) {
@@ -29,26 +29,25 @@ public class QueenBoard {
 	return -1;
     }
     
-    private boolean solveH(int row, int col) {
-	if (col == board.length) return countQueens() == board.length;
-	for (int r = row; r < board.length; r++) {
-	    if (col >= board.length) {
-		if (row == board.length - 1) {
-		    removeQueen(r-1,findQueen(r-1));
-		    return solveH(r-1,0);
-		}
-		return solveH(r,0);
-	    }
+    private boolean solveH(int col) {
+	if (col == board.length) return true;
+	for (int r = 0; r < board.length; r++) {
 	    if (!check(r,col)) {
 		addQueen(r,col);
 		System.out.println(this);
+		System.out.println(col);
+		if (solveH(col+1))
+		    return true;
 	    }
-	    else if (col < board.length) {
+	    if (r == board.length - 1) {
 		col++;
-		r--;
+		if (col != board.length) {
+		    removeQueen(r,col);
+		}
+		System.out.println("\n"+col+"\n"+this);
 	    }
-       	}
-	return countQueens() == board.length;
+	}
+	return col == board.length;
     }
     
   public int getSolutionCount() {
@@ -101,7 +100,7 @@ public class QueenBoard {
     board[r][c]++;
     for (int row = 0; row < board.length; row++) {
 	for (int col = 0; col < board.length; col++) {
-	    if (check(row,col)) {
+	    if (check(row,col) && row != r && col != c) {
 		board[row][col]--;
 	    }
 	}
@@ -131,7 +130,7 @@ public class QueenBoard {
   }
     public static void main(String[] args) {
 	//my code breaks whenever there is no solution with there being a queen at the top left corner
-	QueenBoard q = new QueenBoard(5);
+	QueenBoard q = new QueenBoard(4);
 	//q.addQueen(2,2);
 	//System.out.println(q);
 	//q.addQueen(4,5);
