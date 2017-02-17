@@ -1,20 +1,16 @@
 public class KnightBoard {
     private int[][] board;
-    private int lastRow;
-    private int lastCol;
     public KnightBoard(int startingRows, int startingCols) {
 	board = new int[startingRows][startingCols];
 	for (int i = 0; i < board.length; i++) {
 	    for (int j = 0; j < board.length; j++) {
-		board[i][j] = -1;
+		board[i][j] = 0;
 	    }
 	}
-	lastRow = 0;
-	lastCol = 0;
     }
 
     public void solve() {
-	System.out.println(solveH(0,0,0));
+	System.out.println(solveH(0,0,1));
     }
     
     public boolean badMove(int row, int col) {
@@ -34,19 +30,15 @@ public class KnightBoard {
 
     public boolean solveH(int row, int col, int ID) {
 	if (ID >= board.length * board[0].length) return true;
-	if (badMove(row,col)) return false;
-	if (board[row][col] == -1 && canPlace(ID)) {
-	    board[row][col] = ID;
-	    System.out.println(ID+"\n"+this);
-	    if (ID < board.length * board[0].length) {
-		lastRow = row;
-		lastCol = col;
-		if (solveH(row-1,col+2,ID+1) || solveH(row-1,col-2,ID+1) || solveH(row+2,col-1,ID+1) || solveH(row+2,col+1,ID+1) || solveH(row+1,col+2,ID+1) || solveH(row+1,col-2,ID+1) || solveH(row-2,col+1,ID+1) || solveH(row-2,col-1,ID+1)) {
-		    return true;
+	if (!badMove(row,col)) {
+	    if (board[row][col] == 0 && canPlace(ID)) {
+		board[row][col] = ID;
+		if (ID < board.length * board[0].length) {
+		    if (solveH(row-1,col+2,ID+1) || solveH(row-1,col-2,ID+1) || solveH(row+2,col-1,ID+1) || solveH(row+2,col+1,ID+1) || solveH(row+1,col+2,ID+1) || solveH(row+1,col-2,ID+1) || solveH(row-2,col+1,ID+1) || solveH(row-2,col-1,ID+1)) {
+			return true;
+		    }	    
 		}
-		else if (solveH((row-lastRow)*-1,(col-lastCol*-1),ID)) {
-		    return true;
-		}		    
+		board[row][col] = 0;
 	    }
 	}
 	return false;
