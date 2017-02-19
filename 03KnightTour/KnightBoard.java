@@ -8,7 +8,10 @@ public class KnightBoard {
 	    }
 	}
     }
-
+    public String name() {
+	return "Rozenzaft,Daniel";
+    }
+    
     public void solve() {
 	solveH(0,0,1);
     }
@@ -52,11 +55,10 @@ public class KnightBoard {
 	}
 	return ans;
     }
-    public static void main(String[] args) {
-	int var1 = Integer.parseInt(args[0]);
-	int var2 = Integer.parseInt(args[1]);
-	KnightBoard kb = new KnightBoard(var1,var2);
+    /*public static void main(String[] args) {
+	KnightBoard kb = new KnightBoard(8,8);
+	System.out.println(kb.name());
 	kb.solve();
 	System.out.println(kb);
-    }
+	}*/
 }
