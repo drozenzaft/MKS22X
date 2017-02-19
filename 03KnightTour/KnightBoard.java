@@ -3,55 +3,37 @@ public class KnightBoard {
     public KnightBoard(int startingRows, int startingCols) {
 	board = new int[startingRows][startingCols];
 	for (int i = 0; i < board.length; i++) {
-	    for (int j = 0; j < board.length; j++) {
+	    for (int j = 0; j < board[i].length; j++) {
 		board[i][j] = 0;
 	    }
 	}
     }
 
     public void solve() {
-	System.out.println(solveH(0,0,1));
+	solveH(0,0,1);
     }
     
     public boolean badMove(int row, int col) {
-	return row < 0 || row >= board.length || col < 0 || col >= board[0].length;
-    }
-
-    public boolean canPlace(int ID) {
-	for (int[] i : board) {
-	    for (int j : i) {
-		if (j == ID) {
-		    return false;
-		}
-	    }
-	}
-	return true;
+	return row < 0 || row >= board.length || col < 0 || col >= board[0].length || board[row][col] > 0;
     }
 
     public boolean solveH(int row, int col, int ID) {
-	if (ID >= board.length * board[0].length) return true;
+	if (ID > board.length * board[0].length) return true;
+	int rowNeg2 = row-2;
+	int rowNeg1 = row-1;
+	int rowPos1 = row+1;
+	int rowPos2 = row+2;
+	int colNeg2 = col-2;
+	int colNeg1 = col-1;
+	int colPos1 = col+1;
+	int colPos2 = col+2;
+       	int id = ID+1;
 	if (!badMove(row,col)) {
-	    if (board[row][col] == 0 && canPlace(ID)) {
-		board[row][col] = ID;
-		if (ID < board.length * board[0].length) {
-		    if (solveH(row-1,col+2,ID+1) || solveH(row-1,col-2,ID+1) || solveH(row+2,col-1,ID+1) || solveH(row+2,col+1,ID+1) || solveH(row+1,col+2,ID+1) || solveH(row+1,col-2,ID+1) || solveH(row-2,col+1,ID+1) || solveH(row-2,col-1,ID+1)) {
-			return true;
-		    }	    
-		}
-		board[row][col] = 0;
-	    }
+	    board[row][col] = ID;
+	    if (solveH(rowPos2,colPos1,id) || solveH(rowPos1,colPos2,id) || solveH(rowNeg1,colPos2,id) || solveH(rowNeg2,colPos1,id) || solveH(rowNeg2,colNeg1,id) || solveH(rowNeg1,colNeg2,id) || solveH(rowPos1,colNeg2,id) || solveH(rowPos2,colNeg1,id)) return true;
+	    board[row][col] = 0;
 	}
 	return false;
-    }
-    
-    public void test() {
-	int num = 0;
-	for (int i = 0; i < board.length; i++) {
-	    for (int j = 0; j < board[i].length; j++) {
-		board[i][j] = num;
-		num++;
-	    }
-	}
     }
 
     public String toString() {
@@ -71,8 +53,9 @@ public class KnightBoard {
 	return ans;
     }
     public static void main(String[] args) {
-	int var = Integer.parseInt(args[0]);
-	KnightBoard kb = new KnightBoard(var,var);
+	int var1 = Integer.parseInt(args[0]);
+	int var2 = Integer.parseInt(args[1]);
+	KnightBoard kb = new KnightBoard(var1,var2);
 	kb.solve();
 	System.out.println(kb);
     }
