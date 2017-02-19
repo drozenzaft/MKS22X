@@ -20,7 +20,7 @@ public class KnightBoard {
 	return row < 0 || row >= board.length || col < 0 || col >= board[0].length || board[row][col] > 0;
     }
 
-    public boolean solveH(int row, int col, int ID) {
+    private boolean solveH(int row, int col, int ID) {
 	if (ID > board.length * board[0].length) return true;
 	int rowNeg2 = row-2;
 	int rowNeg1 = row-1;
@@ -60,5 +60,5 @@ public class KnightBoard {
 	System.out.println(kb.name());
 	kb.solve();
 	System.out.println(kb);
-	}*/
+    }*/
 }
