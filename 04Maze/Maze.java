@@ -2,10 +2,8 @@ import java.util.*;
 import java.io.*;
 
 public class Maze{
-
     private char[][]maze;
     private boolean animate;
-
     /*Constructor loads a maze text file, and sets animate to false by default.
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
       '#' - locations that cannot be moved onto
@@ -17,7 +15,21 @@ public class Maze{
       3. When the file is not found OR there is no E or S then: print an error and exit the program.
     */
     public Maze(String filename){
-        //COMPLETE CONSTRUCTOR
+        animate = false;
+	try {
+	    Scanner mazeScan = new Scanner(new File(filename));
+	    int i = 0;
+	    int j = 0;
+	    while (dataScan.hasNext()) {
+		i++;
+		j = dataScan.nextLine().length;
+	    }
+	    maze = new char[i][j];
+	}
+	catch (FileNotFoundException e) {
+	    System.out.println("Maze not found! Please insert a valid maze file!");
+	    System.exit(1);
+	}
     }
 
     public void setAnimate(boolean b){
