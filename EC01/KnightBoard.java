@@ -97,13 +97,15 @@ public class KnightBoard {
 	int colPos2 = col+2;
 	int[] fastestMoves = possibleMoves.clone();
         Arrays.sort(fastestMoves);
-	System.out.print(row+","+col+","+Arrays.toString(possibleMoves));
-	System.out.print(", "+Arrays.toString(fastestMoves)+"\n");
+	//System.out.print(row+","+col+","+Arrays.toString(possibleMoves));
+	//System.out.print(", "+Arrays.toString(fastestMoves)+"\n");
        	int id = ID+1;
 	if (!badMove(row,col)) {
 	    board[row][col] = ID;
 	    System.out.println(this);
-	    if (possibleMoves[0] == fastestMoves[0] && solveH(rowPos2,colPos1,id) || possibleMoves[1] == fastestMoves[0] && solveH(rowPos1,colPos2,id) || possibleMoves[2] == fastestMoves[0] && solveH(rowNeg1,colPos2,id) || possibleMoves[3] == fastestMoves[0] && solveH(rowNeg2,colPos1,id) || possibleMoves[4] == fastestMoves[0] && solveH(rowNeg2,colNeg1,id) || possibleMoves[5] == fastestMoves[0] && solveH(rowNeg1,colNeg2,id) || possibleMoves[6] == fastestMoves[0] && solveH(rowPos1,colNeg2,id) || possibleMoves[7] == fastestMoves[0] && solveH(rowPos2,colNeg1,id)) return true;
+	    for (int i : fastestMoves) {
+		if (possibleMoves[0] == i && solveH(rowPos2,colPos1,id) || possibleMoves[1] == i && solveH(rowPos1,colPos2,id) || possibleMoves[2] == i && solveH(rowNeg1,colPos2,id) || possibleMoves[3] == i && solveH(rowNeg2,colPos1,id) || possibleMoves[4] == i && solveH(rowNeg2,colNeg1,id) || possibleMoves[5] == i && solveH(rowNeg1,colNeg2,id) || possibleMoves[6] == i && solveH(rowPos1,colNeg2,id) || possibleMoves[7] == i && solveH(rowPos2,colNeg1,id)) return true;
+	    }
 	    board[row][col] = 0;
 	}
 	return false;
@@ -113,9 +115,12 @@ public class KnightBoard {
 	String ans = "";
 	for (int i = 0; i < board.length; i++) {
 	    for (int j = 0; j < board[i].length; j++) {
-		if (board[i][j] < 10) {
+		if (board[i][j] < 1000)
 		    ans += " ";
-		}
+		if (board[i][j] < 100)
+		    ans += " ";
+		if (board[i][j] < 10)
+		    ans += " ";
 		ans += board[i][j];
 		if (j < board[i].length - 1) {
 		    ans += " ";
