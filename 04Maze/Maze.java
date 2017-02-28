@@ -20,17 +20,36 @@ public class Maze{
 	    Scanner mazeScan = new Scanner(new File(filename));
 	    int i = 0;
 	    int j = 0;
-	    while (dataScan.hasNext()) {
+	    String line = "";
+	    while (mazeScan.hasNext()) {
 		i++;
-		j = dataScan.nextLine().length;
+		line = mazeScan.nextLine();
+		if (j == 0) j = line.length();
 	    }
 	    maze = new char[i][j];
+	    i = 0;
+	    mazeScan = new Scanner(new File(filename));
+	    while (mazeScan.hasNext()) {
+		line = mazeScan.nextLine();
+		for (int c = 0; c < line.length(); c++) {
+		    maze[i][c] = line.charAt(c);
+		}
+		i++;
+	    }
 	}
 	catch (FileNotFoundException e) {
 	    System.out.println("Maze not found! Please insert a valid maze file!");
 	    System.exit(1);
 	}
     }
+
+    private void wait(int millis){ //ADDED SORRY!
+         try {
+             Thread.sleep(millis);
+         }
+         catch (InterruptedException e) {
+         }
+     }
 
     public void setAnimate(boolean b){
         animate = b;
@@ -46,10 +65,12 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public boolean solve(){
-            int startr=-1,startc=-1;
+	int[] s = findS();
+	int startr = s[0];
+	int startc = s[1];
             //Initialize starting row and startint col with the location of the S. 
-            maze[startr][startc] = ' ';//erase the S, and start solving!
-            return solve(startr,startc);
+	maze[startr][startc] = ' ';//erase the S, and start solving!
+	return solve(startr,startc);
     }
 
     /*
@@ -70,9 +91,37 @@ public class Maze{
             System.out.println("\033[2J\033[1;1H"+this);
             wait(20);
         }
-
-        //COMPLETE SOLVE
-        return false; //so it compiles
+	if (maze[row][col] == 'E') {
+	    return true;
+	}
+	if (maze[row][col] == ' ') {
+	    maze[row][col] = '@';
+	    if (solve(row+1,col) || solve(row-1,col) || solve(row,col+1) || solve(row,col-1)) return true;
+	    maze[row][col] = '.';
+	}
+	return false;
+    }
+    
+    private int[] findS() {
+	int[] temp = new int[2];
+	for (int r = 0; r < maze.length; r++) {
+	    for (int c = 0; c < maze[r].length; c++)
+		if (maze[r][c] == 'S') {
+		    temp[0] = r;
+		    temp[1] = c;
+		}
+	}
+	return temp;
     }
 
+    public String toString() {
+	String ans = "";
+	for (int i = 0; i < maze.length; i++) {
+	    for (int j = 0; j < maze[i].length; j++) {
+		ans += maze[i][j];
+		if (j == maze[i].length - 1) ans += "\n";
+	    }
+	}
+	return ans;
+    }
 }
