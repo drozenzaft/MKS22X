@@ -43,6 +43,10 @@ public class Maze{
 	}
     }
 
+    public String name() {
+	return "Rozenzaft,Daniel";
+    }
+
     private void wait(int millis){ //ADDED SORRY!
          try {
              Thread.sleep(millis);
