@@ -21,17 +21,21 @@ public class Maze{
 	    int i = 0;
 	    int j = 0;
 	    String line = "";
-	    while (mazeScan.hasNext()) {
+	    while (mazeScan.hasNextLine()) {
 		i++;
 		line = mazeScan.nextLine();
 		if (j == 0) j = line.length();
 	    }
 	    maze = new char[i][j];
+	    //System.out.println(i+","+j+"!!!!");
 	    i = 0;
 	    mazeScan = new Scanner(new File(filename));
-	    while (mazeScan.hasNext()) {
+	    while (mazeScan.hasNextLine()) {
 		line = mazeScan.nextLine();
+		//System.out.println("'"+line+"'");
+		//System.out.println(line.length()+","+maze[i].length);
 		for (int c = 0; c < line.length(); c++) {
+		    //System.out.println(maze[i][c]);
 		    maze[i][c] = line.charAt(c);
 		}
 		i++;
@@ -117,6 +121,14 @@ public class Maze{
 	}
 	return temp;
     }
+    
+    private String recolor(char c) {
+	int which = 0;
+	if (c == '@') which = 36;
+	if (c == ' ') which = 37;
+	if (c == '.') which = 31;
+	return (char)27 + "[" + which + "m" + c + (char)27 + "[0m";
+    } 
 
     public String toString() {
 	String ans = "";
