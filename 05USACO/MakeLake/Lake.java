@@ -29,7 +29,18 @@ public class Lake {
 	for (int i = 0; i < str.length; i++) ans[i] = Integer.parseInt(str[i]);
 	return ans;
     }
+
+    private int[][] getLake() {
+	int[][] ans = new int[lake.length][lake[1].length];
+	for (int i = 1; i < lake.length-lake[0][3]; i++) ans[i-1] = lake[i];
+	return ans;
+    }
 	
+    public int stomp() {
+	return stomp(lake[0][0],lake[0][1],lake[0][2],lake[0][3]) * 72 * 72;
+    }
+
+    private static int stomp(int r, int c, int e, int 
 
     public static void main(String[] args) {
 	Lake lake = new Lake(args[0]);
