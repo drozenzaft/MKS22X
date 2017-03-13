@@ -1,0 +1,1 @@
+As of 8AM Monday the 13th of March, my silver problem is not complete. I was sick throughout the weekend, and I couldn't work on the project. Please disregard the lateness for the assignment; it will, barring issues, be completed by Wednesday. I will elaborate on this unfortunate situation in class on Monday. THANKS FOR UNDERSTANDING!!!!! - Daniel
