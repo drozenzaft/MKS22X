@@ -14,9 +14,16 @@ public class Part {
 	System.out.println(ind+","+piv);
 	int beg = start;
 	int en = end;
-	for (int i = start; beg > en; i++) {
-	    if (piv >= data[beg]) beg++;
-	    if (piv < data[en]) en--;
+	for (int i = start; beg < en; i++) {
+	    if (piv <= data[beg]) {
+		beg++;
+	    }
+	    else if (piv > data[en]) {
+		en--;
+	    }
+	    else {
+		swap(data,en,beg);
+	    }
 	}
 	swap(data,ind,en);
 	return en;
@@ -26,7 +33,7 @@ public class Part {
 	Part a = new Part();
 	int[] test = {44,75,23,43,55,12,64,77,33};
 	System.out.println(Arrays.toString(test));
-	System.out.println(part(test,1,test.length-1));
+	System.out.println(part(test,0,test.length-1));
 	System.out.println(Arrays.toString(test));
     }
 
