@@ -172,7 +172,7 @@ public class USACO {
     public static int silver(String filename) {
 	int[][] input = load2(filename);
 	int i = input.length-1;
-	int[][][] param = new int[input[0][2]][][];
+	int[][][] param = new int[input[0][2]+1][][];
 	param[0] = getPath(input);
 	param[0][input[i][2]-1][input[i][1]-1] = 1;
 	for (int j = 1; j < param.length; j++) {
@@ -181,20 +181,44 @@ public class USACO {
 	}
 	//for (int[] l : param[0]) System.out.println(Arrays.toString(l));
 	solve(param);
-	return sumNeighbors(param[param.length-1],input[i][2]-1,input[i][3]-1);
+	return param[param.length-1][input[i][2]-1][input[i][3]-1];
     }
     
     private static void solve(int[][][] input) {
 	//input[1] = input[0];
+	//System.out.println(Arrays.toString(input[0][0]));
 	for (int i = 1; i < input.length; i++) {
 	    int[][] temp = new int[input[i].length][input[i][0].length];
-	    //System.out.println("temp: ");
-	    //for (int[] a : temp) System.out.println(Arrays.toString(a));
+	    //temp = input[i-1];
+	    //    for (int i = 1; i < input.length; i++) {
 	    for (int r = 0; r < input[i].length; r++) {
 		for (int c = 0; c < input[i][r].length; c++) {
-		    if (input[i][r][c] > -1) {
+		    if (input[i-1][r][c] > -1) {
+			temp[r][c] = sumNeighbors(input[i-1],r,c);
+			//System.out.println(temp[r][c]);
+			//    System.out.println(i+":");
+			//for (int[] q : input[i-1]) System.out.println(Arrays.toString(q));
+		    }
+		    else {
+			temp[r][c] = -1;
+		    }
+		}
+	    }
+	    input[i] = temp;
+		//}
+	    //if (i < input.length-1) input[i+1] = Arrays.copyOf(input[i],input[i].length);
+	    //copy(input,temp);
+	    //for (int[] k : input) System.out.println(Arrays.toString(k));
+	    //System.out.print("\n");
+	}
+	//}
+	    //System.out.println("temp: ");
+	    //for (int[] a : temp) System.out.println(Arrays.toString(a));
+	    /*    for (int r = 0; r < input[i].length; r++) {
+		for (int c = 0; c < input[i][r].length; c++) {
+		    if (temp[r][c] > -1) {
 			//input[i][r][c] = sumNeighbors(input[i-1],r,c);
-			temp[r][c] = sumNeighbors(input[i],r,c);
+			input[i][r][c] = sumNeighbors(input[i],r,c);
 			//System.out.println(input[i][r][c]);
 			//System.out.println(i+":");
 			//for (int[] q : input[i-1]) System.out.println(Arrays.toString(q));
@@ -202,16 +226,17 @@ public class USACO {
 		    else {
 			input[i][r][c] = -1;
 		    }
-		}
-	    }
+		    }*/
+	    //}
+    // input[input.length-1] = temp;
 	    //if (i < input.length-1) input[i+1] = Arrays.copyOf(input[i],input[i].length);
 	    //copy(input,temp);
 	    for (int k = 0; k < input.length; k++) {
 		for (int[] l : input[k]) System.out.println(k + ": "+Arrays.toString(l));
 		System.out.println("\n");
 	    }
+    //}
 	}
-    }
     private static int sumNeighbors(int[][] input, int r, int c) {
 	int ans = 0;
 	int[][] neighbors = {{1,0},{-1,0},{0,1},{0,-1}};
@@ -219,6 +244,7 @@ public class USACO {
 	    try {
 		if (input[r+neighbors[i][0]][c+neighbors[i][1]] > 0) {
 		    ans += input[r+neighbors[i][0]][c+neighbors[i][1]];
+		    //input[r+neighbors[i][0]][c+neighbors[i][1]] = 0;
 		    //System.out.println("["+r+","+c+"] added: "+Arrays.toString(neighbors[i]));
 		}
 		//System.out.println(input[r+neighbors[i][0]][c+neighbors[i][1]]);
