@@ -174,10 +174,10 @@ public class USACO {
 	int i = input.length-1;
 	int[][][] param = new int[input[0][2]+1][][];
 	param[0] = getPath(input);
-	param[0][input[i][2]-1][input[i][1]-1] = 1;
+	param[0][input[i][0]-1][input[i][1]-1] = 1;
 	for (int j = 1; j < param.length; j++) {
 	    param[j] = new int[param[0].length][param[0][0].length];
-	    param[j][input[i][2]-1][input[i][1]-1] = 1;
+	    //param[j][input[i][2]-1][input[i][1]-1] = 1;
 	}
 	//for (int[] l : param[0]) System.out.println(Arrays.toString(l));
 	solve(param);
@@ -231,12 +231,11 @@ public class USACO {
     // input[input.length-1] = temp;
 	    //if (i < input.length-1) input[i+1] = Arrays.copyOf(input[i],input[i].length);
 	    //copy(input,temp);
-	    for (int k = 0; k < input.length; k++) {
-		for (int[] l : input[k]) System.out.println(k + ": "+Arrays.toString(l));
-		System.out.println("\n");
-	    }
-    //}
-	}
+		for (int h = 0; h < input.length; h++) {
+		    System.out.println(printer2(input,h));
+		}
+		//}
+    }
     private static int sumNeighbors(int[][] input, int r, int c) {
 	int ans = 0;
 	int[][] neighbors = {{1,0},{-1,0},{0,1},{0,-1}};
@@ -263,11 +262,27 @@ public class USACO {
 	}
     }
 
-    public static void main(String[] args) {
-	USACO travel = new USACO(args[0]);
-	for (int[] i : travel.load2(args[0])) System.out.println(Arrays.toString(i));
-	System.out.println(travel.silver(args[0]));
+    //thanks to khinshan for this printer/testing method
+    public static String printer2(int[][][] pasture,int x){
+	String s="";
+	for(int i=0; i<pasture.length;i++){
+	    for(int j=0; j< pasture[i].length;j++) {
+		s += i + ": ";
+		for (int k = 0; k < pasture[i][j].length; k++) {
+		    s+=pasture[i][j][k]+" ";
+		}
+		s+="\n";
+	    }
+	    s+="\n";
+	}
+	return s;
     }
+
+    /*public static void main(String[] args) {
+	USACO travel = new USACO(args[0]);
+	System.out.println(travel.bronze(args[0]));
+	//for (int[] i : travel.load(args[0])) System.out.println(Arrays.toString(i));
+	}*/
 }
 			   
 /*
