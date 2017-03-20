@@ -13,15 +13,17 @@ public class Quick {
 	int pivot = data[ind];
 	System.out.println("pivot: " +ind+","+pivot);
 	int last = end;
-	for (int i = start; i <= end && last >= 0; i++) {
-	    if (data[i] >= pivot) {
+	swap(data,0,ind);
+	for (int i = start; i <= last; i++) {
+	    if (data[i] > pivot) {
 		swap(data,i,last);
 		last--;
+		i--;
 	    }
 	    System.out.println("i, last: " +i+","+last);
 	    System.out.println(Arrays.toString(data));
 	}
-	swap(data,ind,last);
+	swap(data,0,last);
 	//swap(data,last,last-1);
 	return last;
     }
