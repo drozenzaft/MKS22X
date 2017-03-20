@@ -10,18 +10,15 @@ public class Quick {
     
     public static int part(int[] data, int start, int end) {
 	int ind = start + (int)(Math.random()*(end-start));
-	//int ind = 0;
 	int pivot = data[ind];
 	System.out.println("pivot: " +ind+","+pivot);
-	int first = start;
-        int last = 0;
-	for (int i = start; i <= end; i++) {
-	    if (data[i] < pivot) {
-		swap(data,first,i);
-		last = first;
-		first++;
+	int last = end;
+	for (int i = start; i <= end && last >= 0; i++) {
+	    if (data[i] >= pivot) {
+		swap(data,i,last);
+		last--;
 	    }
-	    System.out.println("first, i: " +last+","+i);
+	    System.out.println("i, last: " +i+","+last);
 	    System.out.println(Arrays.toString(data));
 	}
 	swap(data,ind,last);
