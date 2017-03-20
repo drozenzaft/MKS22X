@@ -15,7 +15,7 @@ public class Driver{
 	//Partition Test Cases (Need to check the array visually)
 	int []data= randomArray(10, 100);
 	  System.out.println(Arrays.toString(data));
-	  System.out.println(Quick.part(data, 0, 9));
+	  System.out.println(Quick.part(data, 0, data.length-1));
 	  System.out.println(Arrays.toString(data));
 	
 	//K's Test Cases
