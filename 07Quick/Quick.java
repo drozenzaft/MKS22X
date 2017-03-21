@@ -54,39 +54,28 @@ public class Quick {
 		swap(data,i,gt);
 		gt--;
 	    }
-	    //System.out.println("i,lt,gt: " +i+","+lt + "," + gt);
-	    //System.out.println(Arrays.toString(data));
 	}
 	return gt;
     }
 
     //return the value that is the kth smallest value of the array
-    public static int quickselect(int[] data, int k){
-	System.out.println(Arrays.toString(data));
-	if (data.length <= 2) return indexOf(data,k);
+    /*public static int quickselect(int[] data, int k){
+	//System.out.println("before: "+Arrays.toString(data));
 	int[] temp = new int[1];
 	int part = part(data,0,data.length-1);
+        if (k == part) return data[part];
 	if (k > part) {
-	    temp = new int[data.length-part];
-	    for (int i = part; i < data.length; i++) temp[i-part] = data[i];
+	    
 	}
 	else if (k < part) {
-	    temp = new int[part];
-	    for (int i = 0; i < part; i++) temp[i] = data[i];
+	    
 	}
-	else {
-	    return part;
-	}
-	return quickselect(temp,k);
-    }
+        if (Arrays.equals(data,temp)) return data[data.length-1];
+        //System.out.println("after: " + Arrays.toString(temp));
+	}*/
 
-    private static int indexOf(int[] data, int num) {
-	for (int i = 0; i < data.length; i++) {
-	    if (data[i] == num) return i;
-	}
-	return -1;
-    }
-
+    
+    
     public static void main(String[] args) {
 	Quick a = new Quick();
 	//int[] test1 = {3,1,4,3,5,3,2,6,5,3};
@@ -94,12 +83,9 @@ public class Quick {
 	int[] test = {44,75,23,43,55,12,64,77,33};
 	System.out.println(Arrays.toString(test1));
 	//System.out.println(part(test1,0,test1.length-1));
-	for (int k = 0; k < test1.length; k++) System.out.println(test1[k] + ": " + quickselect(test1,k));
+	//	for (int k = 0; k < test1.length; k++) {
+	//  System.out.println(k + ": " + quickselect(test1,k));
+	//}
 	//System.out.println(Arrays.toString(test1));
     }
-
-    //-Choose a random element to be a pivot, and partition the array around it. 
-    //-Only partition the elements from start to end inclusive.
-    //-When done returns the index of the final position of the pivot element.      
-    //    (Should be from start to end inclusive)
 }
