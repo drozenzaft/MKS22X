@@ -13,34 +13,15 @@ public class Quiz2Redux{
     }
   
     private static void help(ArrayList<String> words, String s, String str, int ind) {
-	for (int i = ind; i <= s.length(); i++) {
-	    unique(words,str);
-	    try {
-		help(words,s,str+s.charAt(i),i+1);
-		help(words,s,""+s.charAt(i),i+1);
-	    }
-	    catch (IndexOutOfBoundsException e) {
-		unique(words,str);
-	    }
+	try {
+	    help(words,s,str+s.charAt(ind),ind+1);
+	    help(words,s,str,ind+1);
 	}
-   	return;
-    }
-
-    private static void unique(ArrayList<String> ary, String in) {
-	int chance = 0;
-	for (String a : ary) {
-	    if (a.equals(in)) {
-		chance++;
-	    }
+	catch (IndexOutOfBoundsException e) {
+	    words.add(str);
 	}
-	if (chance == 0) ary.add(in);
+	return;
     }
-    
-    /*private static void help(ArrayList<String> words, String s, String str) {
-	if (words.size() == (int)(Math.pow(2,s.length))) return;
-	for (int i = 0; i < s.length(); i++) {
-	    if (!words.contains(str)) words.add(str);
-	    */
 
     /*public static void main(String[] args) {
 	Quiz2Redux q = new Quiz2Redux();
