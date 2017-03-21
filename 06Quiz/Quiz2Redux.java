@@ -1,16 +1,16 @@
 import java.util.*;
 public class Quiz2Redux{  
-  /*Returns an ArrayList<String> that contains all subsets of the
-   *characters of String s. Assume s has no duplicate characters.
-   *the characters should appear in the same order that they occur 
-   *in the original string.
-   */
-  public static ArrayList<String> combinations(String s){
-      ArrayList<String>words = new ArrayList<String>();
-      help(words,s,"",0);
-      Collections.sort(words);
-      return words;
-  }
+    /*Returns an ArrayList<String> that contains all subsets of the
+     *characters of String s. Assume s has no duplicate characters.
+     *the characters should appear in the same order that they occur 
+     *in the original string.
+     */
+    public static ArrayList<String> combinations(String s){
+	ArrayList<String>words = new ArrayList<String>();
+	help(words,s,"",0);
+	Collections.sort(words);
+	return words;
+    }
   
     private static void help(ArrayList<String> words, String s, String str, int ind) {
 	for (int i = ind; i <= s.length(); i++) {
@@ -33,7 +33,6 @@ public class Quiz2Redux{
 		chance++;
 	    }
 	}
-	//System.out.println(Arrays.toString(ary.toArray(new String[ary.size()]))+","+in+","+chance);
 	if (chance == 0) ary.add(in);
     }
     
