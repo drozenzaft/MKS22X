@@ -47,6 +47,6 @@ public class Merge {
     //int[] b = {0,3,8,17,27,41,77,81,86,101,104};
     int[] d = new int[a.length+b.length];
     merge(a,b,d);*/
-    //System.out.println(Arrays.toString(a));
+    System.out.println(Arrays.toString(a));
   }
 }
