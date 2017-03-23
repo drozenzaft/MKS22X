@@ -30,7 +30,7 @@ public class Driver{
 	
 	//Quick Select Test Cases, can just look to see if a line isn't spaced and is "ERROR"
 	//Might modify to give more insight, but what works works.
-	  /* 	for(int i=0; i<10; i++){
+	   	for(int i=0; i<10; i++){
 	    //checking for a friend; 10 min and 20 max
 	    int size=10+(int)Math.floor(Math.random()*(20-10+1));
 	    int []data= randomArray(size, 1000);
@@ -43,7 +43,7 @@ public class Driver{
 		System.out.println(String.format(" Woo! for %s \n %s \n sortedSelect: %s : quickSelect: %s",
 						 randompos, Arrays.toString(data), data[randompos], q));
 	    }else{System.out.println("ERROR");}
-	    }*/
+	    }
     }
 }
 
