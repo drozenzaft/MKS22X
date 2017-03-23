@@ -37,16 +37,16 @@ public class Merge {
 	merge(left,right,ary);
     }
 
-  public static void main(String[] args) {
+    /*public static void main(String[] args) {
     int[] a = new int[115000000];//{1,2,7,10,23,44,77,92};
     for (int i = 0; i < a.length; i++) a[i] = (int)(Math.random()*a.length);
     mergesort(a);
-    /*int[] b = new int[300];
+    int[] b = new int[300];
     for (int j = 0; j < b.length; j++) b[j] = (int)(Math.random()*b.length);
     Arrays.sort(b);
     //int[] b = {0,3,8,17,27,41,77,81,86,101,104};
     int[] d = new int[a.length+b.length];
-    merge(a,b,d);*/
+    merge(a,b,d);
     System.out.println(Arrays.toString(a));
-  }
+  }*/
 }
