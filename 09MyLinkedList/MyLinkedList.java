@@ -103,12 +103,17 @@ public class MyLinkedList {
     }
 
     public void add(int index, int value) {
+	if (size == 0) {
+	    add(value);
+	    return;
+	}
 	exception(index);
 	size++;
-	LNode last;
-	for (int i = index+1; i < size; i++) {
-	    last = new LNode(get(i));
-	    set(i,get(i-1));
+	LNode current = new LNode(get(index));
+	for (int i = index+1; i < size-1; i++) {
+	    current.next = new LNode(get(i));
+	    set(i,current.value);
+	    current = current.next;
 	}
 	set(index,value);
     }
@@ -144,6 +149,7 @@ public class MyLinkedList {
         for (int i = 0; i < 11; i++) l.add(i);
 	System.out.println(l);
 	l.add(5,100);
+	System.out.println(l.get(5));
 	System.out.println(l);
     }
 }
