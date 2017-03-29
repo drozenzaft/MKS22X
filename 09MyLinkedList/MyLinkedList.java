@@ -1,10 +1,24 @@
 public class MyLinkedList {
     private LNode start;
     private int size;
-    public MyLinkedList(LNode first, int howBig) {
-	start = first;
-	size = howBig;
+
+    public MyLinkedList() {
+	size = 0;
     }
+	
+    /*public MyLinkedList(int first, int howBig) {
+	start = new LNode(first);
+	size = howBig;
+        int i = 1;
+	LNode current = new LNode(0);
+	start.next = current;
+	while (i < size) {
+	    current.next = new LNode(0);
+	    current = current.next;
+	    i++;
+	}
+    }*/
+    
     private class LNode {
 	private int value;
 	private LNode next;
@@ -16,11 +30,39 @@ public class MyLinkedList {
 	    next = nex;
 	}
     }
+    
     public boolean add(int value) {
 	size++;
-	start.next = new LNode(value);
+	if (size == 1) {
+	    start = new LNode(value);
+	}
+	else {
+	    int i = 0;
+	    LNode current = start;
+	    while (current.next != null) {
+		current = current.next;
+		i++;
+	    }
+	    current.next = new LNode(value);
+	}
 	return true;
     }
+
+    /*public boolean add(int value) {
+	LNode prev = start;
+	int next = 0;
+	size++;
+	int i = 1;
+	while (i < size) {
+	    prev.next = new LNode(prev.value);
+	    prev = prev.next;
+	    i++;
+	}
+	if (size > 1) start.value = value;
+	else start = new LNode(value);
+	return true;
+	}*/
+    
     public int size() {
 	return size;
     }
@@ -68,6 +110,7 @@ public class MyLinkedList {
 	    last = new LNode(get(i));
 	    set(i,get(i-1));
 	}
+	set(index,value);
     }
 
     public int remove(int index) {
@@ -84,14 +127,24 @@ public class MyLinkedList {
     
     public String toString() {
 	LNode current = start;
-	String ans = "[";
+	String ans = "";
 	int i = 0;
-	while (i < size) {
-	    ans += current.value + ", ";
+	while (current != null) {
+	    if (i > 0) ans += ", ";
+	    ans += current.value;
 	    current = current.next;
 	    i++;
 	}
-	return ans + "]";
+	return "[" + ans + "]";
+    }
+
+    public static void main(String[] args) {
+	MyLinkedList l = new MyLinkedList();
+	l = new MyLinkedList();
+        for (int i = 0; i < 11; i++) l.add(i);
+	System.out.println(l);
+	l.add(5,100);
+	System.out.println(l);
     }
 }
     
