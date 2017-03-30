@@ -108,20 +108,29 @@ public class MyLinkedList {
 	    return;
 	}
 	exception(index);
-	size++;
 	LNode current = new LNode(get(index));
-	for (int i = index+1; i < size-1; i++) {
+	for (int i = index+1; i < size; i++) {
 	    current.next = new LNode(get(i));
 	    set(i,current.value);
 	    current = current.next;
 	}
+	add(current.value);
 	set(index,value);
     }
 
     public int remove(int index) {
 	exception(index);
 	int ans = get(index);
-	for (int i = index; i < size-1; i++) set(i,get(i+1));
+	int i = index-1;
+	LNode current = new LNode(get(i));
+	while (i < size-2) {
+	    current.next = new LNode(get(i+2));
+	    set(i+1,current.next.value);
+	    current = current.next;
+
+	    i++;
+	}
+	//for (int i = index; i < size-1; i++) set(i,get(i+1));
 	size--;
 	return ans;
     }
@@ -149,7 +158,9 @@ public class MyLinkedList {
         for (int i = 0; i < 11; i++) l.add(i);
 	System.out.println(l);
 	l.add(5,100);
-	System.out.println(l.get(5));
+	l.add(8,77);
+	System.out.println(l);
+	l.remove(8);
 	System.out.println(l);
     }
 }
