@@ -33,18 +33,22 @@ public class MyLinkedList {
     
     public boolean add(int value) {
 	size++;
+	int i = 0;
+	LNode current;
 	if (size == 1) {
 	    start = new LNode(value);
+	    current = start;
 	}
 	else {
-	    int i = 0;
-	    LNode current = start;
-	    while (current.next != null) {
+	    current = start;
+	    while (i < size-2) {
+		//must end at size-2 because you're starting at start.next (index 1) and you've increased the size by one in the variable without actually adding to the list, so you should loop until 1 less than the end
 		current = current.next;
 		i++;
 	    }
 	    current.next = new LNode(value);
 	}
+	//System.out.println(current.value+","+i);
 	return true;
     }
 
@@ -121,17 +125,16 @@ public class MyLinkedList {
     public int remove(int index) {
 	exception(index);
 	int ans = get(index);
-	int i = index-1;
-	LNode current = new LNode(get(i));
-	while (i < size-2) {
-	    current.next = new LNode(get(i+2));
-	    set(i+1,current.next.value);
+	int i = index;
+	LNode current = new LNode(get(index-1));
+	while (i < size-1) {
+	    current.next = new LNode(get(i+1));
+	    set(i,current.next.value);
 	    current = current.next;
-
 	    i++;
 	}
-	//for (int i = index; i < size-1; i++) set(i,get(i+1));
 	size--;
+	//System.out.println("final: " + this);
 	return ans;
     }
 
@@ -143,7 +146,7 @@ public class MyLinkedList {
 	LNode current = start;
 	String ans = "";
 	int i = 0;
-	while (current != null) {
+	while (i < size) {
 	    if (i > 0) ans += ", ";
 	    ans += current.value;
 	    current = current.next;
@@ -155,12 +158,21 @@ public class MyLinkedList {
     public static void main(String[] args) {
 	MyLinkedList l = new MyLinkedList();
 	l = new MyLinkedList();
+	System.out.println(l);
         for (int i = 0; i < 11; i++) l.add(i);
 	System.out.println(l);
 	l.add(5,100);
+	System.out.println(l);
 	l.add(8,77);
+	System.out.println(l.get(8));
 	System.out.println(l);
 	l.remove(8);
+	System.out.println(l);
+	l.set(8,14);
+	System.out.println(l);
+	l.add(777);
+	System.out.println("error?" +l);
+	l.add(4,74);
 	System.out.println(l);
     }
 }
