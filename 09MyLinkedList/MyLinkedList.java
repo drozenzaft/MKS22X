@@ -22,6 +22,7 @@ public class MyLinkedList {
     private class LNode {
 	private int value;
 	private LNode next;
+	private LNode prev;
 	private LNode(int val) {
 	    value = val;
 	}
@@ -31,7 +32,7 @@ public class MyLinkedList {
 	}
     }
     
-    public boolean add(int value) {
+    /*public boolean add(int value) {
 	size++;
 	int i = 0;
 	LNode current;
@@ -47,9 +48,21 @@ public class MyLinkedList {
 		i++;
 	    }
 	    current.next = new LNode(value);
+	    (current.next).prev = current;
 	}
 	//System.out.println(current.value+","+i);
 	return true;
+	}*/
+
+    public void add(int value) {
+	if (size == 0) {
+	    start = new LNode(value);
+	    return;
+	}
+	LNode last = new LNode(get(size-1));
+	last.next = new LNode(value);
+	last.next.prev = last;
+	size++;
     }
 
     /*public boolean add(int value) {
@@ -107,7 +120,7 @@ public class MyLinkedList {
     }
 
     public void add(int index, int value) {
-	if (size == 0) {
+	if (size == 0 || size == index) {
 	    add(value);
 	    return;
 	}
@@ -115,6 +128,7 @@ public class MyLinkedList {
 	LNode current = new LNode(get(index));
 	for (int i = index+1; i < size; i++) {
 	    current.next = new LNode(get(i));
+	    (current.next).prev = current;
 	    set(i,current.value);
 	    current = current.next;
 	}
@@ -122,7 +136,7 @@ public class MyLinkedList {
 	set(index,value);
     }
 
-    public int remove(int index) {
+    /*public int remove(int index) {
 	exception(index);
 	int ans = get(index);
 	int i = index;
@@ -136,6 +150,27 @@ public class MyLinkedList {
 	size--;
 	//System.out.println("final: " + this);
 	return ans;
+	}*/
+
+    public int remove(int index) {
+	exception(index);
+	LNode node = getNode(index);
+	int ans = node.value;
+	node.prev.next = node.next;
+	node.next.prev = node.prev;
+	size--;
+	return ans;
+    }
+
+    private LNode getNode(int index) {
+	exception(index);
+	int i = 0;
+	LNode current = start;
+	while (i < index) {
+	    current = current.next;
+	    i++;
+	}
+	return current;
     }
 
     private void exception(int index) {
@@ -159,7 +194,7 @@ public class MyLinkedList {
 	MyLinkedList l = new MyLinkedList();
 	l = new MyLinkedList();
 	System.out.println(l);
-        for (int i = 0; i < 11; i++) l.add(i);
+        for (int i = 0; i < 11; i++) l.add(i,i);
 	System.out.println(l);
 	l.add(5,100);
 	System.out.println(l);
