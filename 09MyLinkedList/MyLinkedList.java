@@ -29,6 +29,7 @@ public class MyLinkedList {
 	private LNode(int val, LNode nex) {
 	    value = val;
 	    next = nex;
+	    next.prev = this;
 	}
     }
     
@@ -57,9 +58,10 @@ public class MyLinkedList {
     public void add(int value) {
 	if (size == 0) {
 	    start = new LNode(value);
+	    size++;
 	    return;
 	}
-	LNode last = new LNode(get(size-1));
+	LNode last = getNode(size-1);
 	last.next = new LNode(value);
 	last.next.prev = last;
 	size++;
@@ -84,7 +86,7 @@ public class MyLinkedList {
 	return size;
     }
     
-    public int get(int index) {
+    /*public int get(int index) {
 	exception(index);
 	LNode current = start;
 	int i = 0;
@@ -93,9 +95,14 @@ public class MyLinkedList {
 	    i++;
 	}
 	return current.value;
+	}*/
+
+    public int get(int index) {
+	exception(index);
+	return getNode(index).value;
     }
 
-    public int set(int index, int newValue) {
+    /*public int set(int index, int newValue) {
 	exception(index);
 	LNode current = start;
 	int i = 0;
@@ -106,9 +113,17 @@ public class MyLinkedList {
 	int oldValue = current.value;
 	current.value = newValue;
 	return oldValue;
+	}*/
+
+    public int set(int index, int newValue) {
+	exception(index);
+	int ans = get(index);
+	LNode node = getNode(index);
+	node.value = newValue;
+	return ans;
     }
     
-    public int indexOf(int value) {
+    /*public int indexOf(int value) {
 	LNode current = start;
 	int i = 0;
 	while (i < size) {
@@ -117,9 +132,17 @@ public class MyLinkedList {
 	    else i++;
 	}
 	return -1;
+	}*/
+
+    public int indexOf(int value) {
+	int i = 0;
+	while (i < size) {
+	    if (get(i) == value) return i;
+	}
+	return -1;
     }
 
-    public void add(int index, int value) {
+    /*public void add(int index, int value) {
 	if (size == 0 || size == index) {
 	    add(value);
 	    return;
@@ -134,8 +157,24 @@ public class MyLinkedList {
 	}
 	add(current.value);
 	set(index,value);
-    }
+	}*/
 
+    public void add(int index, int value) {
+	if (size == 0 || size == index) {
+	    add(value);
+	    return;
+	}
+	exception(index);
+	LNode current = getNode(index);
+	LNode newbie = new LNode(value);
+	newbie.next = current;
+	if (index > 0) {
+	    newbie.prev = current.prev;
+	    newbie.prev.next = newbie;
+	}
+	size++;
+    }
+	
     /*public int remove(int index) {
 	exception(index);
 	int ans = get(index);
@@ -156,8 +195,16 @@ public class MyLinkedList {
 	exception(index);
 	LNode node = getNode(index);
 	int ans = node.value;
-	node.prev.next = node.next;
-	node.next.prev = node.prev;
+	if (index > 0 && index < size-1) {
+	    node.prev.next = node.next;
+	    node.next.prev = node.prev;
+	}
+	else if (index == 0) {
+	    start = node.next;
+	}
+	else {
+	    getNode(size-2).next = null; 
+	}
 	size--;
 	return ans;
     }
@@ -174,17 +221,15 @@ public class MyLinkedList {
     }
 
     private void exception(int index) {
-	if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Error: LinkedList does not contain a node at specified index");
+	if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Error: LinkedList does not contain a node at specified index: " + index);
     }
     
     public String toString() {
-	LNode current = start;
 	String ans = "";
 	int i = 0;
 	while (i < size) {
 	    if (i > 0) ans += ", ";
-	    ans += current.value;
-	    current = current.next;
+	    ans += get(i);
 	    i++;
 	}
 	return "[" + ans + "]";
@@ -206,8 +251,13 @@ public class MyLinkedList {
 	l.set(8,14);
 	System.out.println(l);
 	l.add(777);
-	System.out.println("error?" +l);
+	System.out.println(l);
 	l.add(4,74);
+	System.out.println(l);
+	while (l.size > 4) {
+	    l.remove(3);
+	    System.out.println(l);
+	}
 	System.out.println(l);
     }
 }
