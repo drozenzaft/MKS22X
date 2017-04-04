@@ -1,5 +1,5 @@
 public class MyLinkedList {
-    private LNode start;
+    private LNode start,end;
     private int size;
 
     public MyLinkedList() {
@@ -26,10 +26,11 @@ public class MyLinkedList {
 	private LNode(int val) {
 	    value = val;
 	}
-	private LNode(int val, LNode nex) {
-	    value = val;
-	    next = nex;
-	    next.prev = this;
+	public String toString() {
+	    if (prev == null && next == null) return "null," + value + ",null";
+	    if (prev == null) return "(null)"+value+"(" + next.value+ ")";
+	    else if (next == null) return "(" + prev.value + ")" + value + "(null)";
+	    return "(" + prev.value + ")" + value + "("+next.value+")";
 	}
     }
     
@@ -58,12 +59,13 @@ public class MyLinkedList {
     public void add(int value) {
 	if (size == 0) {
 	    start = new LNode(value);
+	    end = start;
 	    size++;
 	    return;
 	}
-	LNode last = getNode(size-1);
-	last.next = new LNode(value);
-	last.next.prev = last;
+	end.next = new LNode(value);
+	end.next.prev = end;
+	end = end.next;
 	size++;
     }
 
@@ -98,7 +100,6 @@ public class MyLinkedList {
 	}*/
 
     public int get(int index) {
-	exception(index);
 	return getNode(index).value;
     }
 
@@ -116,9 +117,8 @@ public class MyLinkedList {
 	}*/
 
     public int set(int index, int newValue) {
-	exception(index);
-	int ans = get(index);
 	LNode node = getNode(index);
+	int ans = get(index);
 	node.value = newValue;
 	return ans;
     }
@@ -160,11 +160,10 @@ public class MyLinkedList {
 	}*/
 
     public void add(int index, int value) {
-	if (size == 0 || size == index) {
+	if (size == 0 || index == size) {
 	    add(value);
 	    return;
 	}
-	exception(index);
 	LNode current = getNode(index);
 	LNode newbie = new LNode(value);
 	newbie.next = current;
@@ -192,7 +191,6 @@ public class MyLinkedList {
 	}*/
 
     public int remove(int index) {
-	exception(index);
 	LNode node = getNode(index);
 	int ans = node.value;
 	if (index > 0 && index < size-1) {
@@ -203,7 +201,7 @@ public class MyLinkedList {
 	    start = node.next;
 	}
 	else {
-	    getNode(size-2).next = null; 
+	    end.prev.next = null;
 	}
 	size--;
 	return ans;
@@ -235,30 +233,45 @@ public class MyLinkedList {
 	return "[" + ans + "]";
     }
 
-    public static void main(String[] args) {
+    //toStringDebug
+    /*public String toString() {
+	String ans = "";
+	int i = 0;
+	while (i < size) {
+	    if (i > 0) ans += ", ";
+	    ans += getNode(i);
+	    i++;
+	}
+	return "[" + ans + "]";
+	}*/
+
+    /*public static void main(String[] args) {
 	MyLinkedList l = new MyLinkedList();
 	l = new MyLinkedList();
 	System.out.println(l);
-        for (int i = 0; i < 11; i++) l.add(i,i);
-	System.out.println(l);
+	for (int i = 0; i < 11; i++) {
+	    l.add(i);
+	    System.out.println(l + "," + l.start.value + "," + l.end.value);
+	}
+	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.add(5,100);
-	System.out.println(l);
+	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.add(8,77);
 	System.out.println(l.get(8));
-	System.out.println(l);
+	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.remove(8);
-	System.out.println(l);
+	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.set(8,14);
-	System.out.println(l);
+	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.add(777);
-	System.out.println(l);
+	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.add(4,74);
-	System.out.println(l);
+	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	while (l.size > 4) {
 	    l.remove(3);
-	    System.out.println(l);
+	    System.out.println(l + "," + l.start.value + "," + l.end.value);
 	}
-	System.out.println(l);
-    }
+	System.out.println(l + "," + l.start.value + "," + l.end.value);
+	}*/
 }
     
