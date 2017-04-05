@@ -1,4 +1,6 @@
-public class MyLinkedList {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+public class MyLinkedList implements Iterable<Integer> {
     private LNode start,end;
     private int size;
 
@@ -32,6 +34,36 @@ public class MyLinkedList {
 	    else if (next == null) return "(" + prev.value + ")" + value + "(null)";
 	    return "(" + prev.value + ")" + value + "("+next.value+")";
 	}
+    }
+
+    private class MyLinkedListIterator implements Iterator<Integer> {
+	private LNode start;
+	private MyLinkedList linkedList;
+	private MyLinkedListIterator(MyLinkedList linkedList) {
+	    this.linkedList = linkedList;
+	    start = linkedList.start;
+	}
+	public Integer next() {
+	    if (hasNext()) {
+		int ans = start.value;
+		if (start.next != null) start = start.next;
+		else start = null;
+		return ans;
+	    }
+	    else {
+		throw new NoSuchElementException();
+	    }
+	}
+	public boolean hasNext() {
+	    return start != null;
+	}
+	public void remove() {
+	    throw new UnsupportedOperationException();
+	}
+    }
+
+    public Iterator<Integer> iterator() {
+	return new MyLinkedListIterator(this);
     }
     
     /*public boolean add(int value) {
@@ -248,30 +280,37 @@ public class MyLinkedList {
     /*public static void main(String[] args) {
 	MyLinkedList l = new MyLinkedList();
 	l = new MyLinkedList();
-	System.out.println(l);
+	//System.out.println(l);
 	for (int i = 0; i < 11; i++) {
 	    l.add(i);
-	    System.out.println(l + "," + l.start.value + "," + l.end.value);
+	    //  System.out.println(l + "," + l.start.value + "," + l.end.value);
 	}
-	System.out.println(l + "," + l.start.value + "," + l.end.value);
+	System.out.println(l);
+	for (int j : l) System.out.println(j);
+	System.out.println(l);
+	//	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.add(5,100);
-	System.out.println(l + "," + l.start.value + "," + l.end.value);
+	//	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.add(8,77);
-	System.out.println(l.get(8));
-	System.out.println(l + "," + l.start.value + "," + l.end.value);
+	//	System.out.println(l.get(8));
+	//System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.remove(8);
-	System.out.println(l + "," + l.start.value + "," + l.end.value);
+	//	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.set(8,14);
-	System.out.println(l + "," + l.start.value + "," + l.end.value);
+	//	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.add(777);
-	System.out.println(l + "," + l.start.value + "," + l.end.value);
+	//System.out.println(l + "," + l.start.value + "," + l.end.value);
 	l.add(4,74);
-	System.out.println(l + "," + l.start.value + "," + l.end.value);
+	//	System.out.println(l + "," + l.start.value + "," + l.end.value);
 	while (l.size > 4) {
 	    l.remove(3);
-	    System.out.println(l + "," + l.start.value + "," + l.end.value);
+	    //  System.out.println(l + "," + l.start.value + "," + l.end.value);
 	}
-	System.out.println(l + "," + l.start.value + "," + l.end.value);
-	}*/
+	//	System.out.println(l + "," + l.start.value + "," + l.end.value);
+	Iterator<Integer> it = l.iterator();
+	System.out.println(it.hasNext());
+	System.out.println(it.next());
+	for (int i : l) System.out.println(i);
+    }
+    */
 }
-    
