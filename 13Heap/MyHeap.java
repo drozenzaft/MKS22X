@@ -4,7 +4,7 @@ public class MyHeap {
     private int constant;
     public MyHeap() {
 	heap = new ArrayList<String>();
-	heap.add(null);
+	heap.add("");
 	constant = 1;
     }
     public MyHeap(boolean minMax) {
@@ -18,12 +18,43 @@ public class MyHeap {
     }
     public void add(String s) {
 	heap.add(s);
+	pushUp();
     }
     public String remove() {
-	return heap.remove(1);
+	String root = heap.remove(1);
+	pushUp();
+	return root;
     }
     public String peek() {
-	return heap.get(1);
+	if (size() > 1) return heap.get(1);
+	return null;
+    }
+    private void swap(int a, int b) {
+	String temp = heap.get(a);
+	heap.set(a,heap.get(b));
+	heap.set(b,temp);
+    }
+    private boolean isGood(int root) {
+	if (size() == 1 || (size()-1)/2 == (size()-2)/2) return true;
+	if (compare2(heap.get(root),heap.get(root*2)) < 0 || compare2(heap.get(root),heap.get(root*2+1)) < 0) return false;
+	return true;
+    }
+    private void pushUp() {
+	heap.set(1,heap.get(size()-1));
+	heap.remove(heap.get(size()-1));
+	pushDown();
+    }
+    private void pushDown() {
+	int i = 1;
+	int bigger = 2;
+	while (!isGood(i)) {
+	    if (compare2(heap.get(i*2),heap.get(i*2+1)) >= 0) bigger = i*2;
+	    else bigger = i*2+1;
+	    swap(i,bigger);
+	}
+    }
+    private int compare2(String me, String other) {
+	return constant * me.compareTo(other);
     }
     public String toString() {
 	String ans = "[";
@@ -31,7 +62,22 @@ public class MyHeap {
 	return ans.substring(0,ans.length()-2) + "]";
     }
     public static void main(String[] args) {
-	
+	MyHeap heap = new MyHeap(false);
+	heap.add("a");
+	heap.add("b");
+	heap.add("W");
+	heap.add("V");
+	heap.add("c");
+	heap.add("d");
+	heap.add("U");
+	heap.add("e");
+	heap.add("T");
+	heap.add("S");
+	heap.add("f");
+	heap.add("g");
+	heap.add("R");
+	heap.add("Q");
+	System.out.println(heap);
     }
 }
 
