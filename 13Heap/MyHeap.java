@@ -4,7 +4,7 @@ public class MyHeap {
     private int constant;
     public MyHeap() {
 	heap = new ArrayList<String>();
-	heap.add("");
+	heap.add(null);
 	constant = 1;
     }
     public MyHeap(boolean minMax) {
@@ -21,8 +21,9 @@ public class MyHeap {
 	pushUp();
     }
     public String remove() {
-	String root = heap.remove(1);
-	pushUp();
+        swap(1,size());
+	String root = heap.remove(size());
+	pushDown();
 	return root;
     }
     public String peek() {
@@ -34,23 +35,26 @@ public class MyHeap {
 	heap.set(a,heap.get(b));
 	heap.set(b,temp);
     }
-    private boolean isGood(int root) {
-	if (size() == 1 || (size()-1)/2 == (size()-2)/2) return true;
-	if (compare2(heap.get(root),heap.get(root*2)) < 0 || compare2(heap.get(root),heap.get(root*2+1)) < 0) return false;
-	return true;
-    }
     private void pushUp() {
-	heap.set(1,heap.get(size()-1));
-	heap.remove(heap.get(size()-1));
-	pushDown();
+	int i = size();
+	System.out.println(heap.get(i));
+	while (i > 1 && compare2(heap.get(i),heap.get(i/2)) > 0) {
+	    System.out.println(this);
+	    swap(i,i/2);
+	    i /= 2;
+	}
     }
+	
     private void pushDown() {
 	int i = 1;
 	int bigger = 2;
-	while (!isGood(i)) {
+	System.out.println(heap.get(i));
+	while (i*2 < size() && (compare2(heap.get(i),heap.get(i*2)) < 0 || compare2(heap.get(i),heap.get(i*2+1)) < 0)) {
+	    System.out.println(this);
 	    if (compare2(heap.get(i*2),heap.get(i*2+1)) >= 0) bigger = i*2;
 	    else bigger = i*2+1;
 	    swap(i,bigger);
+	    i = bigger;
 	}
     }
     private int compare2(String me, String other) {
@@ -64,37 +68,34 @@ public class MyHeap {
     public static void main(String[] args) {
 	MyHeap heap = new MyHeap(false);
 	heap.add("a");
+	System.out.println(heap);
 	heap.add("b");
+	System.out.println(heap);
 	heap.add("W");
+	System.out.println(heap);
 	heap.add("V");
+	System.out.println(heap);
 	heap.add("c");
+	System.out.println(heap);
 	heap.add("d");
+	System.out.println(heap);
 	heap.add("U");
+	System.out.println(heap);
 	heap.add("e");
+	System.out.println(heap);
 	heap.add("T");
+	System.out.println(heap);
 	heap.add("S");
+	System.out.println(heap);
 	heap.add("f");
+	System.out.println(heap);
 	heap.add("g");
+	System.out.println(heap);
 	heap.add("R");
+	System.out.println(heap);
 	heap.add("Q");
+	System.out.println(heap);
+	heap.remove();
 	System.out.println(heap);
     }
 }
-
-
-/*
-
-You are writing a heap of strings, it is very easy to modify this to be a heap of anything else.
-
- Constructors
- -MyHeap() - construct empty max heap
- -MyHeap(boolean) - true: construct empty max heap, false: construct empty min heap.
- Methods
- -void add(String s)
- -String remove()
- -String peek()
-
-Private methods:
- -pushUp()
- -pushDown()
-*/
