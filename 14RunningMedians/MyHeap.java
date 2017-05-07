@@ -13,32 +13,31 @@ public class MyHeap {
 	if (minMax) constant = 1;
 	else constant = -1;
     }
-    private int size() {
+    public int size() {
 	return heap.size() - 1;
     }
-    public void add(Integer s) {
+    public void add(int s) {
 	heap.add(s);
 	pushUp();
     }
-    public Integer remove() {
+    public int remove() {
         swap(1,size());
-	Integer root = heap.remove(size());
+	int root = heap.remove(size());
 	pushDown();
 	return root;
     }
-    public Integer peek() {
+    public int peek() {
 	if (size() > 1) return heap.get(1);
-	return null;
+	return -9999;
     }
     private void swap(int a, int b) {
-	Integer temp = heap.get(a);
+	int temp = heap.get(a);
 	heap.set(a,heap.get(b));
 	heap.set(b,temp);
     }
     private void pushUp() {
 	int i = size();
 	while (i > 1 && compare2(heap.get(i),heap.get(i/2)) > 0) {
-	    System.out.println(this);
 	    swap(i,i/2);
 	    i /= 2;
 	}
@@ -58,7 +57,23 @@ public class MyHeap {
     }
     public String toString() {
 	String ans = "[";
-	for (int a : heap) ans += a + ", ";
+	for (int a = 1; a < heap.size(); a++)
+	    ans += heap.get(a) + ", ";
 	return ans.substring(0,ans.length()-2) + "]";
+    }
+    public static void main(String[] args) {
+	MyHeap rm = new MyHeap(false);
+        rm.add(1);
+	rm.add(64);
+	rm.add(20);
+	rm.add(34);
+	rm.add(44);
+	rm.add(49);
+	rm.add(56);
+	rm.add(401);
+	rm.add(714);
+	rm.add(1021);
+	/*rm.add(7814);*/
+	System.out.println(rm);
     }
 }
