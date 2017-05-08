@@ -18,12 +18,12 @@ public class MyHeap {
     }
     public void add(String s) {
 	heap.add(s);
-	pushUp();
+	pushUp(1);
     }
     public String remove() {
         swap(1,size());
 	String root = heap.remove(size());
-	pushDown();
+	pushDown(1);
 	return root;
     }
     public String peek() {
@@ -35,16 +35,14 @@ public class MyHeap {
 	heap.set(a,heap.get(b));
 	heap.set(b,temp);
     }
-    private void pushUp() {
-	int i = size();
+    private void pushUp(int i) {
 	while (i > 1 && compare2(heap.get(i),heap.get(i/2)) > 0) {
 	    swap(i,i/2);
 	    i /= 2;
 	}
     }
 	
-    private void pushDown() {
-	int i = 1;
+    private void pushDown(int i) {
 	int bigger = 2;
 	while (i*2 < size() && (compare2(heap.get(i),heap.get(i*2)) < 0 || compare2(heap.get(i),heap.get(i*2+1)) < 0)) {
 	    if (compare2(heap.get(i*2),heap.get(i*2+1)) >= 0) bigger = i*2;
