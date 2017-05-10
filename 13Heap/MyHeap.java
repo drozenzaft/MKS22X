@@ -18,7 +18,7 @@ public class MyHeap {
     }
     public void add(String s) {
 	heap.add(s);
-	pushUp(1);
+	pushUp(size());
     }
     public String remove() {
         swap(1,size());
@@ -43,10 +43,18 @@ public class MyHeap {
     }
 	
     private void pushDown(int i) {
-	int bigger = 2;
-	while (i*2 < size() && (compare2(heap.get(i),heap.get(i*2)) < 0 || compare2(heap.get(i),heap.get(i*2+1)) < 0)) {
-	    if (compare2(heap.get(i*2),heap.get(i*2+1)) >= 0) bigger = i*2;
-	    else bigger = i*2+1;
+    	int bigger = 1;
+	while (i*2 <= size() && compare2(heap.get(i),heap.get(i*2)) < 0 || size() >= i*2+1 && compare2(heap.get(i),heap.get(i*2+1)) < 0) {
+	    if (size() >= i*2+1) {
+		if (compare2(heap.get(i*2),heap.get(i*2+1)) >= 0) bigger = i*2;
+		else bigger = i*2+1;
+	    }
+	    else if (size() >= i*2) {
+		bigger = i*2;
+	    }
+	    else {
+		break;
+	    }
 	    swap(i,bigger);
 	    i = bigger;
 	}
@@ -60,7 +68,7 @@ public class MyHeap {
 	return ans.substring(0,ans.length()-2) + "]";
     }
     /*public static void main(String[] args) {
-	MyHeap heap = new MyHeap(false);
+	MyHeap heap = new MyHeap();
 	heap.add("a");
 	System.out.println(heap);
 	heap.add("b");
