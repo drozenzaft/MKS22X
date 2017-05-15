@@ -35,18 +35,25 @@ public class MyHeap {
 	heap.set(a,heap.get(b));
 	heap.set(b,temp);
     }
-    public void pushUp(int i) {
+    private void pushUp(int i) {
 	while (i > 1 && compare2(heap.get(i),heap.get(i/2)) > 0) {
 	    swap(i,i/2);
 	    i /= 2;
 	}
     }	
-    public void pushDown(int i) {
-	int bigger = 2;
-	while (i*2 < size() && (compare2(heap.get(i),heap.get(i*2)) < 0 || compare2(heap.get(i),heap.get(i*2+1)) < 0)) {
-	    System.out.println(i + "," + bigger);
-	    if (compare2(heap.get(i*2),heap.get(i*2+1)) >= 0) bigger = i*2;
-	    else bigger = i*2+1;
+    private void pushDown(int i) {
+	int bigger = 1;
+	while (i*2 <= size() && compare2(heap.get(i),heap.get(i*2)) < 0 || size() >= i*2+1 && compare2(heap.get(i),heap.get(i*2+1)) < 0) {
+	    if (size() >= i*2+1) {
+		if (compare2(heap.get(i*2),heap.get(i*2+1)) >= 0) bigger = i*2;
+		else bigger = i*2+1;
+	    }
+	    else if (size() >= i*2) {
+		bigger = i*2;
+	    }
+	    else {
+		break;
+	    }
 	    swap(i,bigger);
 	    i = bigger;
 	}
@@ -60,7 +67,7 @@ public class MyHeap {
 	    ans += heap.get(a) + ", ";
 	return ans.substring(0,ans.length()-2) + "]";
     }
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 	MyHeap rm = new MyHeap(false);
         rm.add(1);
 	rm.add(64);
@@ -72,7 +79,7 @@ public class MyHeap {
 	rm.add(401);
 	rm.add(714);
 	rm.add(1021);
-	/*rm.add(7814);*/
+	/*rm.add(7814);
 	System.out.println(rm);
-    }
+    }*/
 }
