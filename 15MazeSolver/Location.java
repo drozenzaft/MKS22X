@@ -23,7 +23,22 @@ public class Location implements Comparable<Location> {
 	this.aStar = aStar;
     }
     public int compareTo(Location other) {
-	if (aStar) return (previous.distToGoal + distToGoal).compareTo(other.distToGoal+other.previous.distToGoal);
-	return distToGoal.compareTo(other.distToGoal);
+	Integer dTS = distToStart + distToGoal;
+	Integer dTG = distToGoal;
+	Integer oDTS = other.distToStart + other.distToGoal;
+	Integer oDTG = other.distToGoal;
+	if (aStar) return dTS.compareTo(oDTS);
+	return dTG.compareTo(oDTG);
     }
+    /*public static void main(String[] args) {
+	int a = Integer.parseInt(args[0]);
+	int b = Integer.parseInt(args[1]);
+	Location aaa = null;
+	Location blah = new Location(0, 0, aaa, 0, 2000000);
+	Location test = new Location(0, 0, blah, 0, a, true);
+	Location test1 = new Location(10, 10, blah, 100000000, b, false);
+	System.out.println(test.compareTo(test1));
+        test = new Location(0, 0, blah, 0, a, false);
+	System.out.println(test.compareTo(test1));
+	}*/
 }
