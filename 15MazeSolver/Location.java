@@ -30,6 +30,9 @@ public class Location implements Comparable<Location> {
 	if (aStar) return dTS.compareTo(oDTS);
 	return dTG.compareTo(oDTG);
     }
+    public String toString() {
+        return "(" + row + "," + col + "," + previous + "," + distToStart + "," + distToGoal + "," + aStar + ")";
+    }
     /*public static void main(String[] args) {
 	int a = Integer.parseInt(args[0]);
 	int b = Integer.parseInt(args[1]);
