@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 public class MazeSolver {
     private MyHeap frontier;
-    private char[][] maze;
+    private Maze maze;
     public MazeSolver(String filename) {
 	this(filename,false);
     }
@@ -17,19 +17,27 @@ public class MazeSolver {
 	switch (style) {
 	    case 0:
 		//DFS
+		frontier = new StackFrontier();
+		break;
 	    case 1:
 		//BFS
+		frontier = new QueueFrontier();
 		break;
 	    case 2:
 		//BestFirst
+		frontier = new FrontierPriorityQueue(false);
 		break;
 	    case 3:
 		//A*
+		frontier = new FrontierPriorityQueue(true);
 		break;
 	}
-	Location start = maze.getStart();
+	frontier.add(maze.getStart());
 	Location current = frontier.peek();
-	while (!current.equals(maze.getEnd()) && frontier.size() > 0) {
+	while (frontier.size() > 0) {
+	    if (!current.equals(maze.getEnd())) return;
+	    current = frontier.next();
+	    
 	    frontier.remove();
 	    current = frontier.peek();
 	}

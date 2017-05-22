@@ -1,8 +1,8 @@
 public class FrontierPriorityQueue implements Frontier {
     private MyHeap locations;
     private int size;
-    public FrontierPriorityQueue() {
-	locations = new MyHeap();
+    public FrontierPriorityQueue(boolean b) {
+	locations = new MyHeap(b);
 	size = 0;
     }
     public void add(Location coord) {
