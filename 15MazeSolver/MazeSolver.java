@@ -21,39 +21,18 @@ public class MazeSolver {
 	int ey = maze.getEnd().getY();
 	int newX = 0;
 	int newY = 0;
-	//ugly method sorry!
-	try {
-	    newX = x-1;
-	    if (maze.get(newX,y) != '#') {
-		ans.add(new Location(newX,y,current,Math.abs(newX-sx), Math.abs(newX-ex),aStar));
-		maze.set(newX,y,'?');
+	int[][] neighbors = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+	for (int[] i : neighbors) {
+	    try {
+		if (maze.get(x+i[0],y+i[1]) == ' ') {
+		    newX = x + i[0];
+		    newY = y + i[1];
+		    ans.add(new Location(newX,newY,current,Math.abs(newX-sx)+Math.abs(newY-sy),Math.abs(newX-ex)+Math.abs(newY-ey),aStar));
+		    maze.set(newX,newY,'?');
+		}
 	    }
+	    catch (IndexOutOfBoundsException e) {}
 	}
-	catch (IndexOutOfBoundsException e) {}
-	try {
-	    newX = x+1;
-	    if (maze.get(newX,y) == ' ') {
-		ans.add(new Location(newX,y,current,Math.abs(newX-sx), Math.abs(newX-ex),aStar));
-		maze.set(newX,y,'?');
-	    }
-	}
-	catch (IndexOutOfBoundsException e) {}
-	try {
-	    newY = y-1;
-	    if (maze.get(x,newY) == ' ') {
-		ans.add(new Location(x,newY,current,Math.abs(newY-sy), Math.abs(newY-ey),aStar));
-		maze.set(x,newY,'?');
-	    }
-	}
-	catch (IndexOutOfBoundsException e) {}
-	try {
-	    newY = y+1;
-	    if (maze.get(x,newY) == ' ') {
-		ans.add(new Location(x,newY,current,Math.abs(newY-sy), Math.abs(newY-ey),aStar));
-		maze.set(x,newY,'?');
-	    }
-	}
-	catch (IndexOutOfBoundsException e) {}
 	return ans;
     }
     public void solve() {
@@ -73,11 +52,10 @@ public class MazeSolver {
 	while (frontier.size() > 0) {
 	    maze.set(current.getX(), current.getY(), '.');
 	    current = frontier.next();
-	    if (current.equals(maze.getEnd())) {
+	    if (current.getX() == maze.getEnd().getX() && current.getY() == maze.getEnd().getY()) {
 		traceBack(current);
 		return;
 	    }
-	    //System.out.println(current.getX() + "," + current.getY());
 	    maze.set(current.getX(), current.getY(), '.');
 	    for (Location n : getNeighbors(current)) {
 		frontier.add(n);
@@ -103,9 +81,9 @@ public class MazeSolver {
 	maze.set(maze.getEnd().getX(), maze.getEnd().getY(), 'E');
 	return maze.toString();
     }
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 	MazeSolver m = new MazeSolver(args[0]);
 	m.solve(Integer.parseInt(args[1]));
 	System.out.println(m);
-    }
+	}*/
 }
