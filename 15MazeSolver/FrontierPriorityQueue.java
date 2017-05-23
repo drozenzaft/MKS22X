@@ -5,6 +5,9 @@ public class FrontierPriorityQueue implements Frontier {
 	locations = new MyHeap(b);
 	size = 0;
     }
+    public int size() {
+	return size;
+    }
     public void add(Location coord) {
 	size++;
 	locations.add(coord);

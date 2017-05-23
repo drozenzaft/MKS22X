@@ -22,6 +22,27 @@ public class Location implements Comparable<Location> {
 	this.distToGoal = distToGoal;
 	this.aStar = aStar;
     }
+    public int getX() {
+	return row;
+    }
+    public void setX(int val) {
+	row = val;
+    }
+    public int getY() {
+	return col;
+    }
+    public void setY(int val) {
+	col = val;
+    }
+    public Location getPrevious() {
+	return previous;
+    }
+    public int distToStart() {
+	return distToStart;
+    }
+    public int distToGoal() {
+	return distToGoal;
+    }
     public int compareTo(Location other) {
 	Integer dTS = distToStart + distToGoal;
 	Integer dTG = distToGoal;
