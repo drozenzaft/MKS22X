@@ -77,8 +77,6 @@ public class MazeSolver {
 	}
     }
     public String toString() {
-	maze.set(maze.getStart().getX(), maze.getStart().getY(), 'S');
-	maze.set(maze.getEnd().getX(), maze.getEnd().getY(), 'E');
 	return maze.toString();
     }
     /*public static void main(String[] args) {
